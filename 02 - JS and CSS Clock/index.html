@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+
+<body>
+
+
+  <div class="clock">
+    <div class="clock-face">
+      <div class="hand hour-hand"></div>
+      <div class="hand min-hand"></div>
+      <div class="hand second-hand"></div>
+    </div>
+  </div>
+
+
+  <style>
+    html {
+      background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background-size: cover;
+      font-family: 'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border: 20px solid white;
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow:
+        0 0 0 4px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px);
+      /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width: 50%;
+      height: 6px;
+      background: black;
+      position: absolute;
+      top: 50%;
+      transform-origin: 100%;
+      /* places hand center top inside clock */
+      transform: rotate(90deg);
+      /* places both hands at 12 o clock */
+      transition: all 0.05s;
+      /* rotates every 0.05 sec */
+      transition-timing-function: cubic-bezier(0.1 2.5 0.6 1);
+    }
+  </style>
+
+  <script>
+    const secondHand = document.querySelector('.second-hand');
+    const hourHand = document.querySelector('.hour-hand');
+    const minuteHand = document.querySelector('.min-hand');
+
+    function setDate() {
+      // gets the date/time
+      const now = new Date();
+      const seconds = now.getSeconds();
+      const minutes = now.getMinutes();
+      const hours = now.getHours();
+
+      const secondDegrees = ((seconds / 60) * 360) + 90; // used to offset the initial placement of the hands (90 degrees,'.hand')
+      const minDegrees = ((minutes / 60) * 360) + 90;
+      const hourDegrees = ((hours / 12) * 360) + 90;
+      // transforms hands in degrees based on time
+      secondHand.style.transform = `rotate(${secondDegrees}deg)`;
+      minuteHand.style.transform = `rotate(${minDegrees}deg)`;
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+      console.log(seconds);
+
+      // used in order to remove the spinning hand after it hits the '12' mark for each minute cycle
+      if (seconds == 0) {
+        secondHand.style.transitionDuration = '0s';
+        minuteHand.style.transitionDuration = '0s';
+        hourHand.style.transitionDuration = '0s';
+      } else {
+        secondHand.style.transitionDuration = '0.05s';
+        minuteHand.style.transitionDuration = '0.05s';
+        hourHand.style.transitionDuration = '0.05s';
+      }
+    }
+
+    setInterval(setDate, 1000);
+
+    setDate();
+
+  </script>
+</body>
+
+</html>
