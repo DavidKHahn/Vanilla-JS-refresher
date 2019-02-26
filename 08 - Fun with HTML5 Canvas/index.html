@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+  const canvas = document.querySelector("#draw");
+  const ctx = canvas.getContext('2d');
+  // space for drawing
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.strokeStyle = '#BADA55';
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.lineWidth = 100;
+  // ctx.globalCompositionOperation = 'multiply'; 
+  // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let hue = 0;
+  let direction = true;
+  // http://mothereffinghsl.com/ 
+
+  // when mouse is moved we draw context onto canvas
+  function draw(e) {
+    if (!isDrawing) return; // stops fn from running if they are not moused down
+    console.log(e);
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+    ctx.beginPath();
+    // start from
+    ctx.moveTo(lastX, lastY);
+    // go to
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+
+    hue++; // increases the hue for diff. colors
+    if (hue >= 360) {
+      hue = 0;
+    } 
+    // if greater than 100 flip direction, if less than 1 flip direction
+    if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+      direction = !direction;
+    }
+    // depending on direction we either increment or decrement
+    if (direction) {
+      ctx.lineWidth++;
+    } else {
+      ctx.lineWidth--;
+    }
+  }
+  // allows mouse down to function properly for drawing
+  canvas.addEventListener('mousedown', (e) => {
+    isDrawing = true; // flag to test whether true or false
+    [lastX, lastY] = [e.offsetX, e.offsetY];  // es6 destructuring array
+  })
+
+  canvas.addEventListener('mousemove', draw); // registers mouse movements
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('mouseout', () => isDrawing = false);
+  // once mouse is off screen the isDrawing will register 'false'
+
+</script>
+
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
