@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('Hello');
+    // Interpolated
+    console.log('Hello I am a %s string!', '💩');
+    // console.log(`Hello I am ${var}`); -> es6
+
+    // Styled
+    // use '%c' to interpolate css after 1st argument
+    console.log('%c I am writing this text right now', 'font-size: 50px; background: red; text-shadow: 10px 10px 0 blue');
+    // warning!
+    console.warn('STOP IT!!!!');
+    // Error :|
+    console.error('EVIL!!!!');
+    // Info
+    console.info('Despite the goliath birdeater\'s appearance, the size of its fangs and its reputation, this spider is entirely harmless and passive toward humans — as are the vast majority of tarantulas around the world. The spiders do have venom, but their bite would hardly compare to the sting of a wasp.')
+    // Testing
+    const p = document.querySelector('p');
+
+    console.assert(p.classList.contains('ouch'), 'That is incorrect!'); // only run when something is wrong
+    // clearing
+    // console.clear();
+
+    // Viewing DOM Elements
+    console.log(p); // gives element
+    console.dir(p); // gives dropdown showing whats inside element
+    // Grouping together
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`); // groups by dog name
+      console.log(`This is ${dog.name}`);
+      console.log(`This is ${dog.name} and ${dog.age}`);
+      console.log(`This is ${dog.name} and ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`); 
+    })
+    // counting
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Steve');
+    console.count('Steve');
+
+    // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+     .then(data => data.json())
+     .then(data => {
+       console.timeEnd('fetching data');
+       console.log(data);
+     })
+
+     console.table(dogs) // takes in array, has to have same properties
+  </script>
+</body>
+</html>
