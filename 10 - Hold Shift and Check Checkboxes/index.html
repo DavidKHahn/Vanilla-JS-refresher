@@ -98,7 +98,7 @@
 <script>
   const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
 
-  let lastChecked;
+  let lastChecked; // stores lastchecked checkbox info
 
   function handleCheck (e) {
     // check if shift key is down AND they are checking the box
@@ -118,7 +118,7 @@
         }
       });
     }
-    lastChecked = this;
+    lastChecked = this; // reference to input that was lastchecked
   }
 
   // click event will trigger keyboard as well
