@@ -11,8 +11,10 @@
   "devDependencies": {
     "browser-sync": "^2.12.5 <2.23.2",
     "uws": "*",
-    "cryptiles": "*",
-    "hoek": "*",
-    "boom": "*"
+    "boom": "*",
+    "lodash": ">=4.17.11",
+    "cryptiles": ">=4.1.2",
+    "mime": ">=1.4.1",
+    "hoek": ">=4.2.1"
   }
 }
