@@ -27,10 +27,10 @@
 
   <script>
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
-    const triggers = document.querySelectorAll('a');
-    const highlight = document.createElement('span');
-    highlight.classList.add('highlight');
-    document.body.appendChild(highlight);
+    const triggers = document.querySelectorAll('a'); // references all of the 'a' elements
+    const highlight = document.createElement('span'); // creates 'span' element 
+    highlight.classList.add('highlight'); // sets class 'highlight'
+    document.body.appendChild(highlight); // adds highlight onto last node child
 
     function highlightLink() {
       // .getBoundingClientRect() method returns the size of an element and its position relative to the viewport.
