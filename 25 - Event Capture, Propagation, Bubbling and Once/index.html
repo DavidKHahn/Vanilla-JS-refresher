@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after { 
+    box-sizing: inherit; 
+  }
+
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+
+  .one {
+    background: thistle;
+  }
+
+  .two {
+    background: mistyrose;
+  }
+
+  .three {
+    background: coral;
+  }
+</style>
+
+<button></button>
+<script>
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
+
+  function logText(e){
+    console.log(this.classList.value);
+  // stopPropagation() of the Event interface prevents further propagation of the current event in the capturing and bubbling phases.
+    e.stopPropagation(); 
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: false, // runs on capture down instead of bubble up
+    once: true // listens for click once and unbinds event (no more clicks until refreshing pg)
+  }))
+
+  button.addEventListener('click', () => {
+    console.log('click!!')
+  }, {
+    once: true // useful for store checkout
+  });
+
+</script>
+</body>
+</html>
